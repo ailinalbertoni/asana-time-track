@@ -46,9 +46,16 @@ if($asana->getResponseCode() == '200' && $result != '' ){
         $result = json_decode($result);
         $in = false;
         
+        //echo "<pre>"; 
+        //var_dump($result); 
+        //echo "</pre>";
+
         // loop through all Tasks of the result, because the Asana-Api gives us also e.g. the completed ones
         foreach($result->data as $task){
-             
+             if($task->parent == null) {
+                continue;
+             }
+
              $value = $asana->getEstimatedAndWorkedTime($task->name);
              $taskState = $asana->getTaskState($task);
 
