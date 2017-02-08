@@ -57,7 +57,7 @@ class AsanaApi {
     }
     
     public function getTasks($workspaceId){
-        return $this->apiRequest($this->workspaceUri.'/'.$workspaceId.'/tasks?assignee=me&opt_fields=name,completed,projects,projects.name,parent,parent.name');
+        return $this->apiRequest($this->workspaceUri.'/'.$workspaceId.'/tasks?assignee=me&opt_fields=name,completed,projects,projects.name,parent,parent.name&limit=60');
     }
     
     public function getTaskState($data){
@@ -69,7 +69,7 @@ class AsanaApi {
         elseif(is_object($data->parent)){
             $castIntoArray = array(
                                 'id' => $data->parent->id,
-                                'name' => 'PARENT TASK: '.$data->parent->name
+                                'name' => $data->parent->name
                              );
         }
         else{
